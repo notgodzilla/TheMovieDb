@@ -223,8 +223,8 @@ public class Result {
         this.releaseDate = releaseDate;
     }
 
-    public Object getProfilePath() {
-        return profilePath;
+    public String getProfilePath() {
+        return String.valueOf(profilePath);
     }
 
     public void setProfilePath(Object profilePath) {

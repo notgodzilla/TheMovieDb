@@ -1,7 +1,9 @@
 package com.notgodzilla.themoviedb;
 
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,13 +13,23 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import java.util.stream.Collectors;
+
 public class ResultGridAdapter extends RecyclerView.Adapter {
 
     private SearchResultsHits hits;
 
     private final static String BASE_IMG_URL = "https://image.tmdb.org/t/p/original/";
 
+    private final static String  MEDIA_TYPE_KEY = "media_type";
+    private final static String MOVIE = "movie";
+    private final static String PERSON = "person";
+    private final static String TV = "tv";
+
+
+
     public ResultGridAdapter(SearchResultsHits hits) {
+
         this.hits = hits;
     }
 
@@ -30,19 +42,41 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
         return resultViewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final Result result = hits.getResults().get(position);
 
-        String posterPath = result.getPosterPath();
-        String imgUrl = BASE_IMG_URL.concat(posterPath);
-        Uri uri = Uri.parse(imgUrl);
-        String resultText = result.getOriginalTitle()!=null ? result.getOriginalTitle() : "";
+        //Only get results with non-null original titles
+        final Result result =
+                hits.getResults()
+                .stream()
+                .filter(r -> r.getOriginalTitle() != null || r.getName() != null)
+                .collect(Collectors.toList())
+                .get(position);
 
-        ((ResultViewHolder) holder).draweeView.setImageURI(uri);
-        ((ResultViewHolder) holder).textView.setText(resultText);
+        createViewBasedOnMediaType(result, (ResultViewHolder) holder);
+    }
+
+    private static void createViewBasedOnMediaType(Result result, ResultViewHolder resultViewHolder) {
+        String mediaType = result.getMediaType();
+        String imageDisplayPath = "";
+        String textToDisplay = "";
+        Uri imageUri;
+
+        if(mediaType.equals(MOVIE)|| mediaType.equals(TV)) {
+            imageDisplayPath = BASE_IMG_URL.concat(result.getPosterPath());
+            textToDisplay = result.getOriginalName();
+        } else if(mediaType.equals(PERSON)) {
+            imageDisplayPath = BASE_IMG_URL.concat(result.getProfilePath());
+            textToDisplay = result.getName();
+        }
+
+        imageUri = Uri.parse(imageDisplayPath);
+        resultViewHolder.draweeView.setImageURI(imageUri);
+        resultViewHolder.textView.setText(textToDisplay);
 
     }
+
 
     @Override
     public int getItemCount() {
@@ -60,6 +94,8 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
             textView = (TextView) itemView.findViewById(R.id.search_result_text_view);
 
         }
+
+
     }
 
 }
