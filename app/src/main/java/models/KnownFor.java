@@ -1,4 +1,4 @@
-package com.notgodzilla.themoviedb;
+package models;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

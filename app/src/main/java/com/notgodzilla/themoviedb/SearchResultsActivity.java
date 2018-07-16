@@ -12,8 +12,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SearchResultsActivity extends AppCompatActivity {
@@ -46,16 +44,16 @@ public class SearchResultsActivity extends AppCompatActivity {
         parameters.put("page", "1");
 
         movieDbAPI.baseApiCall(parameters)
-                .enqueue(new Callback<SearchResultsHit>() {
+                .enqueue(new Callback<SearchResultsHits>() {
                     @Override
-                    public void onResponse(Call<SearchResultsHit> call, Response<SearchResultsHit> response) {
+                    public void onResponse(Call<SearchResultsHits> call, Response<SearchResultsHits> response) {
                         String firstResultText = response.body().getResults().get(0).toString();
                         textView.setText(firstResultText);
                         Log.i(TAG, firstResultText);
                     }
 
                     @Override
-                    public void onFailure(Call<SearchResultsHit> call, Throwable t) {
+                    public void onFailure(Call<SearchResultsHits> call, Throwable t) {
 
                     }
                 });

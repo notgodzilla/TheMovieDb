@@ -9,5 +9,5 @@ import retrofit2.http.QueryMap;
 
 public interface TheMovieDbAPI {
     @GET("search/multi")
-    Call<SearchResultsHit> baseApiCall(@QueryMap Map<String, String> parameters);
+    Call<SearchResultsHits> baseApiCall(@QueryMap Map<String, String> parameters);
 }
