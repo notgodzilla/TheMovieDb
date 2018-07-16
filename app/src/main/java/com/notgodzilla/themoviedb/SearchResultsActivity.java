@@ -3,7 +3,11 @@ package com.notgodzilla.themoviedb;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -12,8 +16,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SearchResultsActivity extends AppCompatActivity {
@@ -46,21 +48,31 @@ public class SearchResultsActivity extends AppCompatActivity {
         parameters.put("page", "1");
 
         movieDbAPI.baseApiCall(parameters)
-                .enqueue(new Callback<SearchResultsHit>() {
+                .enqueue(new Callback<SearchResultsHits>() {
                     @Override
-                    public void onResponse(Call<SearchResultsHit> call, Response<SearchResultsHit> response) {
-                        String firstResultText = response.body().getResults().get(0).toString();
-                        textView.setText(firstResultText);
-                        Log.i(TAG, firstResultText);
+                    public void onResponse(Call<SearchResultsHits> call, Response<SearchResultsHits> response) {
+                        createRecyclerView(response.body());
                     }
 
                     @Override
-                    public void onFailure(Call<SearchResultsHit> call, Throwable t) {
+                    public void onFailure(Call<SearchResultsHits> call, Throwable t) {
 
                     }
                 });
+        }
 
+    private void createRecyclerView(SearchResultsHits hits) {
+        RecyclerView resultRecyclerView = (RecyclerView) findViewById(R.id.result_recycler_view);
+        resultRecyclerView.setVisibility(View.VISIBLE);
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progress_spinner);
+        progressBar.setVisibility(View.GONE);
+
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
+        resultRecyclerView.setLayoutManager(layoutManager);
+
+        RecyclerView.Adapter adapter = new ResultGridAdapter(hits);
+        resultRecyclerView.setAdapter(adapter);
 
     }
 
