@@ -50,7 +50,7 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
         final Result result =
                 hits.getResults()
                 .stream()
-                .filter(r -> r.getOriginalTitle() != null || r.getName() != null)
+                .filter(r -> r.getOriginalName() != null || r.getName() != null)
                 .collect(Collectors.toList())
                 .get(position);
 
@@ -59,13 +59,16 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
 
     private static void createViewBasedOnMediaType(Result result, ResultViewHolder resultViewHolder) {
         String mediaType = result.getMediaType();
+        resultViewHolder.mediaTypeView.setText(mediaType);
+
         String imageDisplayPath = "";
         String textToDisplay = "";
         Uri imageUri;
 
         if(mediaType.equals(MOVIE)|| mediaType.equals(TV)) {
             imageDisplayPath = BASE_IMG_URL.concat(result.getPosterPath());
-            textToDisplay = result.getOriginalName();
+            textToDisplay = mediaType.equals(MOVIE) ? result.getTitle() : result.getOriginalName();
+
         } else if(mediaType.equals(PERSON)) {
             imageDisplayPath = BASE_IMG_URL.concat(result.getProfilePath());
             textToDisplay = result.getName();
@@ -87,11 +90,13 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
 
         public SimpleDraweeView draweeView;
         public TextView textView;
+        public TextView mediaTypeView;
 
         public ResultViewHolder(@NonNull View itemView) {
             super(itemView);
             draweeView = (SimpleDraweeView) itemView.findViewById(R.id.fresco_view);
             textView = (TextView) itemView.findViewById(R.id.search_result_text_view);
+            mediaTypeView = (TextView) itemView.findViewById(R.id.media_type);
 
         }
 
