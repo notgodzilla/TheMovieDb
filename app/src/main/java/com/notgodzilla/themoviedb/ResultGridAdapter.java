@@ -45,14 +45,7 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        //Only get results with non-null original titles
-        final Result result =
-                hits.getResults()
-                .stream()
-                .filter(r -> r.getOriginalName() != null || r.getName() != null)
-                .collect(Collectors.toList())
-                .get(position);
-
+        final Result result = hits.getResults().get(position);
         createViewBasedOnMediaType(result, (ResultViewHolder) holder);
     }
 
@@ -82,7 +75,7 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return hits.getResults().size();
+        return hits.getResults().size()-1;
     }
 
     public static class ResultViewHolder extends RecyclerView.ViewHolder {
