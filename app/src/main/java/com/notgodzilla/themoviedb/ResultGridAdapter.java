@@ -28,7 +28,6 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
 
 
     public ResultGridAdapter(SearchResultsHits hits) {
-
         this.hits = hits;
     }
 
@@ -60,10 +59,13 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
         if(mediaType.equals(MOVIE)|| mediaType.equals(TV)) {
             imageDisplayPath = BASE_IMG_URL.concat(result.getPosterPath());
             textToDisplay = mediaType.equals(MOVIE) ? result.getTitle() : result.getOriginalName();
-
+            String rating = result.getVoteAverage().toString();
+            resultViewHolder.ratingTextView.setText(rating.concat("/10"));
+            resultViewHolder.ratingTextView.setVisibility(View.VISIBLE);
         } else if(mediaType.equals(PERSON)) {
             imageDisplayPath = BASE_IMG_URL.concat(result.getProfilePath());
             textToDisplay = result.getName();
+            resultViewHolder.ratingTextView.setVisibility(View.GONE);
         }
 
         imageUri = Uri.parse(imageDisplayPath);
@@ -83,12 +85,14 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
         public SimpleDraweeView draweeView;
         public TextView textView;
         public TextView mediaTypeView;
+        public TextView ratingTextView;
 
         public ResultViewHolder(@NonNull View itemView) {
             super(itemView);
             draweeView = (SimpleDraweeView) itemView.findViewById(R.id.fresco_view);
             textView = (TextView) itemView.findViewById(R.id.media_name_text_view);
             mediaTypeView = (TextView) itemView.findViewById(R.id.media_type);
+            ratingTextView = (TextView) itemView.findViewById(R.id.rating);
 
         }
 

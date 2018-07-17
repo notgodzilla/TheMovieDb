@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/tools">
 
@@ -22,14 +23,14 @@
         android:gravity="center"
         android:id="@+id/media_type"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         android:text="Media Type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
         android:textColor="@color/resultTextColor"
         android:background="@color/colorPrimary"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         app:layout_constraintTop_toBottomOf="@id/fresco_view"
         />
 
@@ -38,7 +39,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/media_name_text_view"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="50dp"
         android:text="Result Name"
         android:textColor="@color/resultTextColor"
         android:background="@color/colorAccent"
@@ -46,5 +47,18 @@
         app:layout_constraintTop_toBottomOf="@id/media_type"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/rating"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimaryDark"
+        android:gravity="center"
+        android:text="Rating"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/resultTextColor"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/media_name_text_view" />
 
 </android.support.constraint.ConstraintLayout>
