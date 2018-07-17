@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:fresco="http://schemas.android.com/tools">
 
@@ -18,25 +19,32 @@
         fresco:roundingBorderColor="@color/red"/>
 
     <TextView
-        android:id="@+id/media_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:gravity="center"
+        android:id="@+id/media_type"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:text="Media Type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         android:textStyle="bold"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/resultTextColor"
+        android:background="@color/colorPrimary"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        app:layout_constraintTop_toBottomOf="@id/fresco_view"/>
+        app:layout_constraintTop_toBottomOf="@id/fresco_view"
+        />
 
     <TextView
+        android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/media_name_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
         android:text="Result Name"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/resultTextColor"
+        android:background="@color/colorAccent"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/media_type" />
+        app:layout_constraintTop_toBottomOf="@id/media_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>
