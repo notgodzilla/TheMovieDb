@@ -5,7 +5,6 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,7 @@ public class ResultGridAdapter extends RecyclerView.Adapter {
         public ResultViewHolder(@NonNull View itemView) {
             super(itemView);
             draweeView = (SimpleDraweeView) itemView.findViewById(R.id.fresco_view);
-            textView = (TextView) itemView.findViewById(R.id.search_result_text_view);
+            textView = (TextView) itemView.findViewById(R.id.media_name_text_view);
             mediaTypeView = (TextView) itemView.findViewById(R.id.media_type);
 
         }

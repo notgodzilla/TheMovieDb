@@ -3,4 +3,6 @@
     <string name="the_movie_db_text">The Movie Db</string>
     <string name="search_box_hint">Search for Movies, TV Shows, and Actors </string>
     <string name="search">Search</string>
+    <string name="showing_search_results_for">Showing search results for %s</string>
+    <string name="sorry_no_results">Sorry, no search results found for %s</string>
 </resources>
