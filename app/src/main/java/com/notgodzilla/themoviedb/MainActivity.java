@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText searchBox;
 
     public static final String SEARCH_QUERY_EXTRA = "search_query_extra";
+    public static final String PAGE_NUMBER_EXTRA = "page_number_extra";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent searchResultsIntent = new Intent(getApplicationContext(), SearchResultsActivity.class);
                 searchResultsIntent.putExtra(SEARCH_QUERY_EXTRA, searchBox.getText().toString());
+                searchResultsIntent.putExtra(PAGE_NUMBER_EXTRA, 1);
                 startActivity(searchResultsIntent);
             }
         });
